@@ -10,3 +10,12 @@ pom.xml.asc
 .lein-plugins/
 .lein-failures
 .nrepl-port
+/target
+/classes
+/checkouts
+*.jar
+*.class
+/.lein-*
+/.nrepl-port
+.hgignore
+.hg/
