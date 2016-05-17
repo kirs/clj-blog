@@ -19,5 +19,4 @@
   [original-body]
   (let [[first-line & rest-lines] (str/split-lines original-body)
         [frontmatter body]        (split-lines rest-lines first-line)]
-      {:body (str/join "\n" body)
-       :frontmatter (parse-yaml (str/join "\n" frontmatter))}))
+    (assoc (parse-yaml (str/join "\n" frontmatter)) :body (str/join "\n" body))))
