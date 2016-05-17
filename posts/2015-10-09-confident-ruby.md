@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Confident Ruby by Avdi Grim
-date: 2015-10-09 12:00:00 +0400
+date: 2015-10-09
 comments: true
 published: true
 ---

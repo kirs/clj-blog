@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Direct uploads with AWS S3 and Rails
-date: 2015-08-19 19:07:00 +0400
+date: 2015-08-19
 comments: true
 published: true
 ---

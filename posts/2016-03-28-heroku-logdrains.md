@@ -3,7 +3,6 @@ layout: post
 title: Heroku log drains
 date: 2016-03-28
 comments: true
-published: true
 ---
 
 At [Shopify](http://shopify.com), we use Heroku to host a lot of Rails applications.

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Localized cache store in Rails
-date: 2015-09-14 22:00:00 +0400
+date: 2015-09-14
 comments: true
 published: true
 ---
