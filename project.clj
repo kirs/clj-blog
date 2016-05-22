@@ -3,8 +3,10 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :plugins [[lein-cljfmt "0.5.3"]]
+  :plugins [[lein-cljfmt "0.5.3"]
+            [lein-ring "0.9.7"]]
   :main ^:skip-aot clj-blog.web
+  :ring {:handler clj-blog.web/app}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [ring "1.4.0"]
                  [markdown-clj "0.9.89"]
