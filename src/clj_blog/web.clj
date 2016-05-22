@@ -8,15 +8,13 @@
             [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.adapter.jetty :as ring]
+            [ring.middleware.content-type :as rmc]
             [ring.middleware.resource :as rmr]
             [ring.util.response :refer [redirect response]])
   (:gen-class))
 
 (defn list-handler
   [request]
-  ; (str (:params request)))
-  ; (if-let [draft (contains? (:params request) :draft)]
-  ;   (views/list-posts (posts/all))
     (views/list-posts (posts/all-published)))
 
 (defroutes app-routes
@@ -25,7 +23,8 @@
 
 (def app
   (-> app-routes
-    (rmr/wrap-resource "public")))
+    (rmr/wrap-resource "public")
+    (rmc/wrap-content-type)))
 
 (defn -main
   [& args]
