@@ -15,13 +15,12 @@
     [:input {:type "checkbox", :class "sidebar-checkbox", :id "sidebar-checkbox"}]
     [:div {:class "sidebar", :id "sidebar"}
       [:div {:class "sidebar-item"}
-        [:p {} "{{ site.description }}"]]
+        [:p {} "My personal blog, mostly about technical staff."]]
       [:nav {:class "sidebar-nav"}
         [:a {:class "sidebar-nav-item active", :href "/"} "Home"]
         [:a {:class "sidebar-nav-item", :href "http://iempire.ru"} "About"]
         [:div {:class "sidebar-item sidebar-item-separator"}
           [:p {} "Social"]
-
           [:nav {:class "sidebar-nav"}
             [:a {:class "sidebar-nav-item", :href "https://twitter.com/kirshatrov"} "@kirshatrov"]
             [:a {:class "sidebar-nav-item", :href "https://github.com/kirs"} "Github"]]]
@@ -54,15 +53,15 @@
     [:meta {:http-equiv "content-type", :content "text/html; charset=utf-8"}]
     [:meta {:name "viewport", :content "width=device-width, initial-scale=1.0, maximum-scale=1"}]
     [:title (wrap-page-title title)]
-    [:link {:rel "stylesheet", :href (str (basepath) "public/css/poole.css")}]
-    [:link {:rel "stylesheet", :href (str (basepath) "public/css/syntax.css")}]
-    [:link {:rel "stylesheet", :href (str (basepath) "public/css/lanyon.css")}]
-    [:link {:rel "stylesheet", :href "https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400"}]
-    [:link {:rel "stylesheet", :href (str (basepath) "public/rrssb/rrssb.css")}]
+    [:link {:rel "stylesheet", :href (str (basepath) "static/css/poole.css")}]
+    [:link {:rel "stylesheet", :href (str (basepath) "static/css/syntax.css")}]
+    [:link {:rel "stylesheet", :href (str (basepath) "static/css/lanyon.css")}]
+    [:link {:rel "stylesheet", :href "//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400"}]
+    [:link {:rel "stylesheet", :href (str (basepath) "static/rrssb/rrssb.css")}]
     [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"}]
-    [:script {:src (str (basepath) "public/rrssb/rrssb.min.js")}]
-    [:link {:rel "apple-touch-icon-precomposed", :sizes "144x144", :href (str (basepath) "public/apple-touch-icon-precomposed.png")}]
-    [:link {:rel "shortcut icon", :href (str (basepath) "public/favicon.ico")}]
+    [:script {:src (str (basepath) "static/rrssb/rrssb.min.js")}]
+    [:link {:rel "apple-touch-icon-precomposed", :sizes "144x144", :href (str (basepath) "static/apple-touch-icon-precomposed.png")}]
+    [:link {:rel "shortcut icon", :href (str (basepath) "static/favicon.ico")}]
     [:link {:rel "alternate", :type "application/rss+xml", :title "RSS", :href "/atom.xml"}]]))
 
 (defn single-post-page
@@ -117,4 +116,5 @@
             [:h1 { :class "post-title" }
               [:a { :href (:permalink post) } (:title post)]]
             [:span {:class "post-date"} (format-post-date (:date post))]])]]]
-    [:label {:for "sidebar-checkbox", :class "sidebar-toggle"}]))
+    [:label {:for "sidebar-checkbox", :class "sidebar-toggle"}]
+    [:script { :src (str (basepath) "static/js/site.js") }]))
