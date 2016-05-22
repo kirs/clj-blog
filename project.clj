@@ -9,6 +9,7 @@
                  [ring "1.4.0"]
                  [markdown-clj "0.9.89"]
                  [compojure "1.3.4"]
+                 [clj-time "0.11.0"]
                  [hiccup "1.0.5"]
                  [circleci/clj-yaml "0.5.3"]
                  [hickory "0.6.0"]

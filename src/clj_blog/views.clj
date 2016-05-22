@@ -1,5 +1,8 @@
 (ns clj-blog.views
-  (:require [clj-blog.posts :as posts])
+  (:require [clj-blog.posts :as posts]
+            [clj-time.core :as t]
+            [clj-time.coerce :as c]
+            [clj-time.format :as f])
   (:use [hiccup.core]))
 
 (defn wrap-page-title
@@ -74,6 +77,11 @@
       (get post-data :body)]]
     [:label {:for "sidebar-checkbox", :class "sidebar-toggle"}]))
 
+(def time-formatter (f/formatter "dd MMM yyyy"))
+(defn format-post-date
+  [date]
+  (f/unparse time-formatter (c/from-date date)))
+
 (defn single-post-page-v2
   [post-data]
   (html
@@ -84,7 +92,7 @@
      [:div {:class "container content"}
       [:div {:class "post"}
        [:h1 {:class "post-title"} (:title post-data)]
-       [:span {:class "post-date"} (:date post-data)]
+       [:span {:class "post-date"} (format-post-date (:date post-data))]
        (:body post-data)]
       [:div {:class "follow-me"}
        "Follow me on Twitter to get more updates: "
@@ -104,8 +112,9 @@
      (page-masthead)
      [:div {:class "container content"}
        [:div {:class "posts"}
-         (for [x collection]
+         (for [post collection]
            [:div {:class "post"}
             [:h1 { :class "post-title" }
-              [:a { :href (:permalink x) } (:title x)]]])]]]
+              [:a { :href (:permalink post) } (:title post)]]
+            [:span {:class "post-date"} (format-post-date (:date post))]])]]]
     [:label {:for "sidebar-checkbox", :class "sidebar-toggle"}]))

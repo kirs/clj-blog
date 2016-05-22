@@ -24,15 +24,6 @@
   (let [post-data (fm/parse content)]
     (assoc post-data :body (parse-body (:body post-data)))))
 
-; replace with basename
-(defn delete-last-str
-  [s token]
-  (subs s 0 (str/index-of s token)))
-
-(defn basename
-  [path]
-  (str/replace path "posts/" ""))
-
 (defn parse-post-filename
   [filename]
   ; borrowed from Jekyll sources: link
@@ -40,13 +31,13 @@
     { :date date :permalink permalink :ext ext }))
 
 (defn build-permalink
-  [path]
-  (let [data (parse-post-filename (basename path))]
+  [file]
+  (let [data (parse-post-filename (.getName file))]
     (str (str/replace (:date data) "-" "/") "/" (:permalink data))))
 
 (defn open-post
-  [path]
-  (assoc (parse-post (slurp path)) :path path :permalink (build-permalink (str path))))
+  [file]
+  (assoc (parse-post (slurp file)) :file file :permalink (build-permalink file)))
 
 (defn all
   []
@@ -60,4 +51,4 @@
 
 (defn get-post-file
   [year month day post]
-  (str "posts/" (str/join "-" [year month day post]) ".md"))
+  (clojure.java.io/file (str "posts/" (str/join "-" [year month day post]) ".md")))
