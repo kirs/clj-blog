@@ -15,14 +15,13 @@
     (str/replace body #"\{%(\s+)highlight(\s+)(\w+)*(\s)*%\}" "```$3")
     "{% endhighlight %}" "```"))
 
-(defn parse-body
+(defn render-body
   [body]
   (md/md-to-html-string (prepare-body body)))
 
 (defn parse-post
   [content]
-  (let [post-data (fm/parse content)]
-    (assoc post-data :body (parse-body (:body post-data)))))
+  (fm/parse content))
 
 (defn parse-post-filename
   [filename]

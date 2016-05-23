@@ -3,7 +3,7 @@
             [clj-time.core :as t]
             [clj-time.coerce :as c]
             [clj-time.format :as f])
-  (:use [hiccup.core]))
+  (:use [hiccup.page]))
 
 (defn wrap-page-title
   [title]
@@ -20,17 +20,17 @@
         [:a {:class "sidebar-nav-item active", :href "/"} "Home"]
         [:a {:class "sidebar-nav-item", :href "http://iempire.ru"} "About"]
         [:div {:class "sidebar-item sidebar-item-separator"}
-          [:p {} "Social"]
-          [:nav {:class "sidebar-nav"}
-            [:a {:class "sidebar-nav-item", :href "https://twitter.com/kirshatrov"} "@kirshatrov"]
-            [:a {:class "sidebar-nav-item", :href "https://github.com/kirs"} "Github"]]]
+          [:p {} "Social"]]
+        [:nav {:class "sidebar-nav"}
+         [:a {:class "sidebar-nav-item", :href "https://twitter.com/kirshatrov"} "@kirshatrov"]
+         [:a {:class "sidebar-nav-item", :href "https://github.com/kirs"} "Github"]]]
       [:div {:class "sidebar-item"}
         [:p {}
          "Theme based on "
          [:a {:href "http://lanyon.getpoole.com/", :rel "nofollow"} "Lanyon"]
          " by "
          [:a {:rel "nofollow", :href "https://twitter.com/mdo"} "@mdo"]]
-        [:p {} "© Kir Shatrov. All rights reserved."]]]]))
+        [:p {} "© Kir Shatrov. All rights reserved."]]]))
 
 (defn basepath
   []
@@ -46,9 +46,10 @@
 
 (defn page-head
   [title]
-  (html
+  (html5 {:lang "en"}
    [:head
     [:link {:href "http://gmpg.org/xfn/11", :rel "profile"}]
+    [:meta {:name "robots" :content "noindex"}]
     [:meta {:http-equiv "X-UA-Compatible", :content "IE=edge"}]
     [:meta {:http-equiv "content-type", :content "text/html; charset=utf-8"}]
     [:meta {:name "viewport", :content "width=device-width, initial-scale=1.0, maximum-scale=1"}]
@@ -64,24 +65,20 @@
     [:link {:rel "shortcut icon", :href (str (basepath) "static/favicon.ico")}]
     [:link {:rel "alternate", :type "application/rss+xml", :title "RSS", :href "/atom.xml"}]]))
 
-(defn single-post-page
-  [post-data]
-  (html
-    (page-head (:title post-data))
-    (page-sidebar)
-    [:div {:class "wrap"}
-     (page-masthead)
-     [:div {:class "container content"}
-      [:h3 {} (get post-data :title)]
-      (get post-data :body)]]
-    [:label {:for "sidebar-checkbox", :class "sidebar-toggle"}]))
+(page-head)
 
 (def time-formatter (f/formatter "dd MMM yyyy"))
 (defn format-post-date
   [date]
   (f/unparse time-formatter (c/from-date date)))
 
-(defn single-post-page-v2
+(defn sidebar-toggle
+  []
+  (html
+    [:label {:for "sidebar-checkbox", :class "sidebar-toggle"}]
+    [:script { :src (str (basepath) "static/js/site.js") }]))
+
+(defn single-post-page
   [post-data]
   (html
     (page-head (:title post-data))
@@ -92,15 +89,16 @@
       [:div {:class "post"}
        [:h1 {:class "post-title"} (:title post-data)]
        [:span {:class "post-date"} (format-post-date (:date post-data))]
-       (:body post-data)]
+       (posts/render-body (:body post-data))]
       [:div {:class "follow-me"}
        "Follow me on Twitter to get more updates: "
-       [:a {:href "https://twitter.com/kirshatrov"} "@kirshatrov"]]]]))
+       [:a {:href "https://twitter.com/kirshatrov"} "@kirshatrov"]]]]
+    (sidebar-toggle)))
 
 (defn get-post
   [year month day post]
   (let [post (posts/open-post (posts/get-post-file year month day post))]
-    (single-post-page-v2 post)))
+    (single-post-page post)))
 
 (defn list-posts
   [collection]
@@ -116,5 +114,4 @@
             [:h1 { :class "post-title" }
               [:a { :href (:permalink post) } (:title post)]]
             [:span {:class "post-date"} (format-post-date (:date post))]])]]]
-    [:label {:for "sidebar-checkbox", :class "sidebar-toggle"}]
-    [:script { :src (str (basepath) "static/js/site.js") }]))
+    (sidebar-toggle)))
