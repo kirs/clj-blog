@@ -58,7 +58,7 @@
     [:link {:rel "stylesheet", :href (str (basepath) "static/css/lanyon.css")}]
     [:link {:rel "stylesheet", :href "//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400"}]
     [:link {:rel "stylesheet", :href (str (basepath) "static/rrssb/rrssb.css")}]
-    [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"}]
+    [:script {:src "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"}]
     [:script {:src (str (basepath) "static/rrssb/rrssb.min.js")}]
     [:link {:rel "apple-touch-icon-precomposed", :sizes "144x144", :href (str (basepath) "static/apple-touch-icon-precomposed.png")}]
     [:link {:rel "shortcut icon", :href (str (basepath) "static/favicon.ico")}]
