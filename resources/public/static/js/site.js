@@ -1,4 +1,4 @@
-(function(document) {
+$(function() {
   var toggle = document.querySelector('.sidebar-toggle');
   var sidebar = document.querySelector('#sidebar');
   var checkbox = document.querySelector('#sidebar-checkbox');
@@ -12,4 +12,4 @@
 
     checkbox.checked = false;
   }, false);
-})(document);
+});
