@@ -44,6 +44,19 @@
     [:h3 {:class "masthead-title"}
      [:a {:href (basepath), :title "Home"} "Kir Shatrov blog"]]]])
 
+(defn random-highlight-style
+  []
+  (->
+    (clojure.java.io/file "resources/public/static/css/highlight/")
+    file-seq
+    shuffle
+    first
+    .getName))
+
+(defn highlight-style
+  []
+  "github-gist.css")
+
 (defn page-head
   [title]
    [:head
@@ -54,14 +67,16 @@
     [:meta {:name "viewport", :content "width=device-width, initial-scale=1.0, maximum-scale=1"}]
     [:title (wrap-page-title title)]
     [:link {:rel "stylesheet", :href (str (basepath) "static/css/poole.css")}]
-    [:link {:rel "stylesheet", :href (str (basepath) "static/css/syntax.css")}]
     [:link {:rel "stylesheet", :href (str (basepath) "static/css/lanyon.css")}]
     [:link {:rel "stylesheet", :href "//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400"}]
     [:link {:rel "stylesheet", :href (str (basepath) "static/rrssb/rrssb.css")}]
+    [:link {:rel "stylesheet", :href (str (basepath) "static/css/highlight/" (highlight-style))}]
     [:script {:src "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"}]
     [:script {:src (str (basepath) "static/rrssb/rrssb.min.js")}]
+    [:script {:src (str (basepath) "static/js/highlight.pack.js")}]
     [:link {:rel "apple-touch-icon-precomposed", :sizes "144x144", :href (str (basepath) "static/apple-touch-icon-precomposed.png")}]
     [:link {:rel "shortcut icon", :href (str (basepath) "static/favicon.ico")}]
+    [:script {} "hljs.initHighlightingOnLoad();"]
     [:link {:rel "alternate", :type "application/rss+xml", :title "RSS", :href "/atom.xml"}]])
 
 (def time-formatter (f/formatter "dd MMM yyyy"))
